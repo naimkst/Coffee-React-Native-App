@@ -1,5 +1,6 @@
 import {
   Button,
+  FlatList,
   ScrollView,
   StatusBar,
   StyleSheet,
@@ -23,6 +24,7 @@ import {
 } from '../theme/theme';
 import HeaderBar from '../components/HeaderBar';
 import CustomIcon from '../components/CustomIcon';
+import ItemCard from '../components/ItemCard';
 
 const getCategoriesFromData = (data: any) => {
   let temp: any = {};
@@ -73,9 +75,7 @@ export default function HomeScreen({navigation}: any) {
 
         <HeaderBar />
 
-        <Text style={styles.homeBigTitle}>
-          Find the best {'\n'} coffee for you
-        </Text>
+        <Text style={styles.homeBigTitle}>Find the best coffee for you</Text>
 
         {/* Search Bar */}
         <View style={styles.searchSection}>
@@ -98,7 +98,7 @@ export default function HomeScreen({navigation}: any) {
 
         {/* Category List */}
         <ScrollView
-          horizontal
+          horizontal={true}
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.categoryList}>
           {category.map((item: any, index: number) => {
@@ -130,7 +130,32 @@ export default function HomeScreen({navigation}: any) {
 
         {/* Coffee List */}
 
+        <FlatList
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          data={sortList}
+          contentContainerStyle={styles.flatListItem}
+          keyExtractor={item => item.id}
+          renderItem={({item}) => <ItemCard data={item} />}
+        />
+
         {/* Beans List */}
+
+        <Text style={styles.sectionTitle}>Cofee Beans</Text>
+
+        <FlatList
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          data={sortList}
+          contentContainerStyle={[
+            styles.flatListItem,
+            {
+              marginBottom: tabBarHeight,
+            },
+          ]}
+          keyExtractor={item => item.id}
+          renderItem={({item}) => <ItemCard data={item} />}
+        />
 
         {/* Cart Button */}
 
@@ -141,6 +166,12 @@ export default function HomeScreen({navigation}: any) {
 }
 
 const styles = StyleSheet.create({
+  sectionTitle: {
+    fontFamily: FONTFAMILY.poppins_semibold,
+    fontSize: FONTSIZE.size_16,
+    color: COLORS.primaryWhiteHex,
+    paddingLeft: SPACING.space_36,
+  },
   screenContainer: {
     flex: 1,
     backgroundColor: COLORS.primaryBlackHex,
@@ -153,6 +184,7 @@ const styles = StyleSheet.create({
     fontSize: FONTSIZE.size_28,
     color: COLORS.primaryWhiteHex,
     paddingLeft: SPACING.space_30,
+    paddingRight: SPACING.space_30,
   },
   searchIcon: {
     padding: SPACING.space_10,
@@ -174,6 +206,7 @@ const styles = StyleSheet.create({
   },
   categoryList: {
     margin: SPACING.space_30,
+    marginBottom: 0,
   },
   catText: {
     fontFamily: FONTFAMILY.poppins_semibold,
@@ -193,5 +226,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     overflow: 'hidden',
+  },
+  flatListItem: {
+    padding: SPACING.space_30,
   },
 });

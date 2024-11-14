@@ -61,7 +61,7 @@ export default function HomeScreen({navigation}: any) {
     getCoffeList(categoryIndex.category, CoffeeList),
   );
 
-  console.log('CoffeeList', BeansList);
+  console.log('category', sortList.length);
   const tabBarHeight = useBottomTabBarHeight();
   return (
     <View style={styles.screenContainer}>
@@ -97,6 +97,36 @@ export default function HomeScreen({navigation}: any) {
         </View>
 
         {/* Category List */}
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.categoryList}>
+          {category.map((item: any, index: number) => {
+            return (
+              <TouchableOpacity
+                key={index}
+                onPress={() => {
+                  setCategoryIndex({index: index, category: item});
+                  setSortList(getCoffeList(item, CoffeeList));
+                }}>
+                <Text
+                  style={[
+                    styles.catText,
+                    categoryIndex.index === index
+                      ? {color: COLORS.primaryOrangeHex}
+                      : {color: COLORS.primaryLightGreyHex},
+                  ]}>
+                  {item}
+                </Text>
+                {categoryIndex.index === index && (
+                  <View style={styles.activeDot}>
+                    <Text style={styles.textDot}>.</Text>
+                  </View>
+                )}
+              </TouchableOpacity>
+            );
+          })}
+        </ScrollView>
 
         {/* Coffee List */}
 
@@ -128,7 +158,9 @@ const styles = StyleSheet.create({
     padding: SPACING.space_10,
   },
   searchSection: {
-    margin: SPACING.space_30,
+    marginTop: SPACING.space_30,
+    marginLeft: SPACING.space_30,
+    marginRight: SPACING.space_30,
     borderRadius: BORDERRADIUS.radius_20,
     backgroundColor: COLORS.primaryDarkGreyHex,
     alignItems: 'center',
@@ -139,5 +171,27 @@ const styles = StyleSheet.create({
     color: COLORS.primaryWhiteHex,
     fontFamily: FONTFAMILY.poppins_regular,
     fontSize: FONTSIZE.size_16,
+  },
+  categoryList: {
+    margin: SPACING.space_30,
+  },
+  catText: {
+    fontFamily: FONTFAMILY.poppins_semibold,
+    fontSize: FONTSIZE.size_16,
+    marginHorizontal: SPACING.space_10,
+  },
+  textDot: {
+    color: COLORS.primaryWhiteHex,
+    textAlign: 'center',
+    backgroundColor: COLORS.primaryOrangeHex,
+    width: 8,
+    height: 8,
+    borderRadius: SPACING.space_10,
+  },
+  activeDot: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    overflow: 'hidden',
   },
 });

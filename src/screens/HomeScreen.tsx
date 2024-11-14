@@ -170,11 +170,12 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.poppins_semibold,
     fontSize: FONTSIZE.size_16,
     color: COLORS.primaryWhiteHex,
-    paddingLeft: SPACING.space_36,
+    marginTop: SPACING.space_20,
   },
   screenContainer: {
     flex: 1,
     backgroundColor: COLORS.primaryBlackHex,
+    paddingHorizontal: SPACING.space_24,
   },
   scrollViewFlex: {
     flexGrow: 1,
@@ -183,7 +184,6 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.poppins_semibold,
     fontSize: FONTSIZE.size_28,
     color: COLORS.primaryWhiteHex,
-    paddingLeft: SPACING.space_30,
     paddingRight: SPACING.space_30,
   },
   searchIcon: {
@@ -191,8 +191,6 @@ const styles = StyleSheet.create({
   },
   searchSection: {
     marginTop: SPACING.space_30,
-    marginLeft: SPACING.space_30,
-    marginRight: SPACING.space_30,
     borderRadius: BORDERRADIUS.radius_20,
     backgroundColor: COLORS.primaryDarkGreyHex,
     alignItems: 'center',
@@ -205,8 +203,7 @@ const styles = StyleSheet.create({
     fontSize: FONTSIZE.size_16,
   },
   categoryList: {
-    margin: SPACING.space_30,
-    marginBottom: 0,
+    marginTop: SPACING.space_20,
   },
   catText: {
     fontFamily: FONTFAMILY.poppins_semibold,
@@ -228,6 +225,6 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   flatListItem: {
-    padding: SPACING.space_30,
+    marginTop: SPACING.space_20,
   },
 });

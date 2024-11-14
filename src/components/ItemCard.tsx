@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   section: {},
   cardItem: {
     padding: SPACING.space_12,
-    margin: SPACING.space_8,
+    marginRight: SPACING.space_10,
     borderRadius: BORDERRADIUS.radius_20,
   },
   itemImage: {

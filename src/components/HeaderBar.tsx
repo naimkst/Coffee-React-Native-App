@@ -20,7 +20,8 @@ export default function HeaderBar<HeaderBarProps>({title}: any) {
 
 const styles = StyleSheet.create({
   headerSection: {
-    padding: SPACING.space_30,
+    paddingTop: SPACING.space_30,
+    paddingBottom: SPACING.space_20,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',

@@ -12,7 +12,12 @@ const Tab = createBottomTabNavigator();
 
 export default function TabNavigator() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarHideOnKeyboard: true,
+        tabBarShowLabel: false,
+      }}>
       <Tab.Screen name="Home" component={HomeScreen}></Tab.Screen>
       <Tab.Screen name="Favorate" component={FavoriesScreen}></Tab.Screen>
       <Tab.Screen name="Order" component={OrderHistoryScreeen}></Tab.Screen>

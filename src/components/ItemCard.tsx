@@ -52,8 +52,8 @@ export default function ItemCard({data}: any) {
                 fontSize: FONTSIZE.size_18,
                 marginRight: SPACING.space_4,
               }}>
-              $
-            </Text>{' '}
+              {data?.prices[1].currency}
+            </Text>
             <Text style={styles.priceTxt}>{data?.prices[1].price}</Text>
           </View>
           <View style={styles.iconBox}>

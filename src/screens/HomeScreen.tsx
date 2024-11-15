@@ -63,6 +63,8 @@ export default function HomeScreen({navigation}: any) {
     getCoffeList(categoryIndex.category, CoffeeList),
   );
 
+  const listRef: any = React.useRef(null);
+
   console.log('category', sortList.length);
   const tabBarHeight = useBottomTabBarHeight();
   return (
@@ -108,6 +110,7 @@ export default function HomeScreen({navigation}: any) {
                 onPress={() => {
                   setCategoryIndex({index: index, category: item});
                   setSortList(getCoffeList(item, CoffeeList));
+                  listRef.current.scrollToOffset({animated: true, offset: 0});
                 }}>
                 <Text
                   style={[
@@ -131,6 +134,7 @@ export default function HomeScreen({navigation}: any) {
         {/* Coffee List */}
 
         <FlatList
+          ref={listRef}
           horizontal={true}
           showsHorizontalScrollIndicator={false}
           data={sortList}
@@ -144,9 +148,10 @@ export default function HomeScreen({navigation}: any) {
         <Text style={styles.sectionTitle}>Cofee Beans</Text>
 
         <FlatList
+          ref={listRef}
           horizontal={true}
           showsHorizontalScrollIndicator={false}
-          data={sortList}
+          data={BeansList}
           contentContainerStyle={[
             styles.flatListItem,
             {

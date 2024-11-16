@@ -1,5 +1,6 @@
 import {
   Button,
+  Dimensions,
   FlatList,
   ScrollView,
   StatusBar,
@@ -65,6 +66,23 @@ export default function HomeScreen({navigation}: any) {
 
   const listRef: any = React.useRef(null);
 
+  const searchCofee = (search: string) => {
+    if (search != '') {
+      listRef.current.scrollToOffset({animated: true, offset: 0});
+    }
+    setCategoryIndex({index: 0, category: 'All'});
+    let temp = CoffeeList.filter((item: any) =>
+      item.name.toLowerCase().includes(search.toLowerCase()),
+    );
+    setSortList(temp);
+  };
+
+  const resetSearch = () => {
+    setSearch('');
+    setCategoryIndex({index: 0, category: 'All'});
+    setSortList(getCoffeList('All', CoffeeList));
+  };
+
   console.log('category', sortList.length);
   const tabBarHeight = useBottomTabBarHeight();
   return (
@@ -94,8 +112,22 @@ export default function HomeScreen({navigation}: any) {
             placeholderTextColor={COLORS.primaryLightGreyHex}
             style={styles.searchInput}
             value={search}
-            onChangeText={text => setSearch(text)}
+            onChangeText={text => {
+              setSearch(text);
+              searchCofee(text);
+            }}
           />
+
+          {search ? (
+            <TouchableOpacity onPress={resetSearch}>
+              <CustomIcon
+                style={styles.searchClearIcon}
+                name="close"
+                size={FONTSIZE.size_14}
+                color={COLORS.secondaryGreyHex}
+              />
+            </TouchableOpacity>
+          ) : null}
         </View>
 
         {/* Category List */}
@@ -134,13 +166,20 @@ export default function HomeScreen({navigation}: any) {
         {/* Coffee List */}
 
         <FlatList
+          ListEmptyComponent={
+            <View>
+              <Text style={styles.notFound}>No Item Found</Text>
+            </View>
+          }
           ref={listRef}
           horizontal={true}
           showsHorizontalScrollIndicator={false}
           data={sortList}
           contentContainerStyle={styles.flatListItem}
           keyExtractor={item => item.id}
-          renderItem={({item}) => <ItemCard data={item} />}
+          renderItem={({item}) => (
+            <ItemCard data={item} navigation={navigation} />
+          )}
         />
 
         {/* Beans List */}
@@ -148,6 +187,11 @@ export default function HomeScreen({navigation}: any) {
         <Text style={styles.sectionTitle}>Cofee Beans</Text>
 
         <FlatList
+          ListEmptyComponent={
+            <View>
+              <Text style={styles.notFound}>No Item Found</Text>
+            </View>
+          }
           ref={listRef}
           horizontal={true}
           showsHorizontalScrollIndicator={false}
@@ -206,6 +250,10 @@ const styles = StyleSheet.create({
     color: COLORS.primaryWhiteHex,
     fontFamily: FONTFAMILY.poppins_regular,
     fontSize: FONTSIZE.size_16,
+    width: '80%',
+  },
+  searchClearIcon: {
+    marginRight: SPACING.space_10,
   },
   categoryList: {
     marginTop: SPACING.space_20,
@@ -231,5 +279,14 @@ const styles = StyleSheet.create({
   },
   flatListItem: {
     marginTop: SPACING.space_20,
+  },
+  notFound: {
+    color: COLORS.primaryWhiteHex,
+    fontFamily: FONTFAMILY.poppins_regular,
+    fontSize: FONTSIZE.size_16,
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: Dimensions.get('window').width - SPACING.space_30,
   },
 });

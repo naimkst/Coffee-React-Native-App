@@ -4,13 +4,13 @@ import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 
 export default function DetailsScreen({route, navigation}: any) {
-  const {itemId} = route.params;
+  const {itemId}: any = route.params;
   useNavigation();
   return (
     <View>
       <Text>{itemId}</Text>
 
-      <Button title="Go Back" onPress={() => navigation.navigate('Home')} />
+      <Button title="Go Back" onPress={() => navigation.goBack()} />
     </View>
   );
 }

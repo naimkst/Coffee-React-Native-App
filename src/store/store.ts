@@ -14,6 +14,14 @@ export const useStore = create(
       cartPrice: 0,
       FavoritesList: [],
       OrderHistoryList: [],
+      addToCart: (item: any) => {
+        set(
+          produce(state => {
+            state.cartList.push(item);
+            state.cartPrice += item.prices[1].price;
+          }),
+        );
+      },
     }),
     {
       name: 'coffee-store',

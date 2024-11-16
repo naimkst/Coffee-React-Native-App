@@ -22,9 +22,11 @@ import CustomIcon from './CustomIcon';
 // will be show 2 items and one half on the screen
 const itemWidth = Dimensions.get('window').width * 0.33;
 
-export default function ItemCard({data}: any) {
+export default function ItemCard({data, navigation}: any) {
   return (
-    <TouchableOpacity style={styles.section}>
+    <TouchableOpacity
+      style={styles.section}
+      onPress={() => navigation.push('Details', {itemId: data.id})}>
       <LinearGradient
         start={{
           x: 0,
@@ -56,9 +58,11 @@ export default function ItemCard({data}: any) {
             </Text>
             <Text style={styles.priceTxt}>{data?.prices[1].price}</Text>
           </View>
-          <View style={styles.iconBox}>
-            <CustomIcon name="add" size={20} color={COLORS.primaryWhiteHex} />
-          </View>
+          <TouchableOpacity>
+            <View style={styles.iconBox}>
+              <CustomIcon name="add" size={20} color={COLORS.primaryWhiteHex} />
+            </View>
+          </TouchableOpacity>
         </View>
       </LinearGradient>
     </TouchableOpacity>
